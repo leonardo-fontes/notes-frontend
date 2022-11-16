@@ -3,7 +3,7 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <nav className="Navbar">
-                  <h1 className="App-title">Olá mundo!</h1>
+                  <h1 className="App-title">Olá mundo! c: </h1>
                 </nav>
             </header>
         </div>
