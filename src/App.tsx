@@ -1,13 +1,11 @@
+import Navbar from "./components/Navbar";
+
 function App() {
-    return ( 
+    return (
         <div className="App">
-            <header className="App-header">
-                <nav className="Navbar">
-                  <h1 className="App-title">Olá mundo! c: </h1>
-                </nav>
-            </header>
+            <Navbar />
         </div>
-    )
+    );
 }
 
 export default App;
