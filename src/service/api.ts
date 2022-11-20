@@ -2,7 +2,7 @@ import axios from "axios";
 import refreshToken from "./refreshToken";
 
 export const api = axios.create({
-    baseURL: "http://localhost:3333/api",
+    baseURL: "http://52.67.87.115:3333/api",
     headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
     },

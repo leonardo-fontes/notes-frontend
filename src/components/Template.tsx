@@ -10,7 +10,9 @@ const Template: React.FC = () => {
 
     useEffect(() => {
         if (!localStorage.getItem("refresh_token")) {
-            navigate("/login");
+            if (!window.location.pathname.includes('/register')) {
+                navigate("/login");
+            }
         } else {
             navigate("/home");
         }
