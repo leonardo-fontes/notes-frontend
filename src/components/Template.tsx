@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { NotesProvider } from "../context/notes";
 import { UserProvider } from "../context/user";
 import Navbar from "./Navbar";
@@ -10,17 +11,20 @@ const Template: React.FC = () => {
 
     useEffect(() => {
         if (!localStorage.getItem("refresh_token")) {
-            if (!window.location.pathname.includes('/register')) {
-                navigate("/login");
+            if (!window.location.pathname.includes("/register")) {
+                return navigate("/login");
             }
         } else {
-            navigate("/home");
+            if (!window.location.pathname.includes("/note")) {
+                return navigate("/home");
+            }
         }
     }, [pathname]);
     return (
         <>
             <UserProvider>
                 <NotesProvider>
+                    <ToastContainer />
                     <Navbar />
                     <Outlet />
                 </NotesProvider>

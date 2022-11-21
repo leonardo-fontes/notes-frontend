@@ -1,8 +1,7 @@
-import { AxiosError } from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserDTO, useUser } from "../context/user";
-import { api } from "../service/api";
+import { toast } from "react-toastify";
 import auth from "../service/login/auth";
 
 const Login: React.FC = () => {
@@ -15,6 +14,7 @@ const Login: React.FC = () => {
     }, []);
     return (
         <div className="w-full h-screen justify-center items-center flex flex-col">
+            <h1 className="px-4 py-2">Login</h1>
             <form
                 onSubmit={async (event) => {
                     event.preventDefault();
@@ -22,12 +22,20 @@ const Login: React.FC = () => {
                     const { username, password } = Object.fromEntries(
                         new FormData(event.target as HTMLFormElement).entries(),
                     );
-                    const user = await auth({
-                        username: username as string,
-                        password: password as string,
-                    });
-                    setUser(user);
-                    navigate("/home");
+                    try {
+                        const user = await auth({
+                            username: username as string,
+                            password: password as string,
+                        });
+                        setUser(user);
+                        localStorage.setItem("username", user.username);
+                        navigate("/home");
+                        toast("Login feito com sucesso", { type: "success" });
+                    } catch (err) {
+                        toast(`Erro ao logar: ${(err as Error).message}`, {
+                            type: "error",
+                        });
+                    }
                 }}
                 className="flex flex-col gap-4"
             >

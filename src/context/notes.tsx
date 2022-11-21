@@ -8,6 +8,7 @@ import {
 } from "react";
 import { useLocation } from "react-router-dom";
 import { api } from "../service/api";
+import { toast } from "react-toastify";
 
 export type NotesDTO = { _id: string; title: string; content: string };
 type UserContextT = {
@@ -36,8 +37,12 @@ export const NotesProvider = ({ children }: PropsWithChildren) => {
         try {
             await api.delete(`/notes/${id}`);
             setNotes((prev) => prev.filter(({ _id }) => _id !== id));
+            toast("Nota deletada com sucesso", { type: "success" });
         } catch (err) {
             console.error(err);
+            toast(`Erro ao deletar: ${(err as Error).message}`, {
+                type: "error",
+            });
         }
     };
 

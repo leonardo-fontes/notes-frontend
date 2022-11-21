@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Template from "./components/Template";
 import Home from "./page";
+import CreateNote from "./page/createNote";
 import Login from "./page/login";
 import Register from "./page/register";
 import { api } from "./service/api";
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />
+            },
+            {
+                path: "/note",
+                element: <CreateNote />
             }
         ],
     },
