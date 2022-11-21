@@ -43,14 +43,16 @@ const Login: React.FC = () => {
                     name="username"
                     className="border-[1px] px-4 py-2 border-slate-400 border-opacity-25 rounded-md"
                     type="text"
-                    placeholder="Username"
+                    placeholder="Usuário"
                 />
                 <input
                     name="password"
                     className="border-[1px] px-4 py-2 border-slate-400 border-opacity-25 rounded-md"
                     type={"password"}
-                    placeholder="Password"
+                    placeholder="Senha"
                 />
+                <h3 className="text-sm self-center">Não tem uma conta ainda?</h3>
+                <h3 className="text-sm self-center cursor-pointer text-cyan-800 underline" onClick={() => navigate("/register")}>Clique aqui e se registre!</h3>
                 <button
                     type="submit"
                     className="w-full bg-sky-400 text-white px-4 py-[6px] rounded-md"
