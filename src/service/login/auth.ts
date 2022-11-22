@@ -25,6 +25,7 @@ export default async function auth({
 
         localStorage.setItem("token", token);
         localStorage.setItem("refresh_token", refreshToken);
+        localStorage.setItem("username", user.username);
         return user;
     } catch (err) {
         throw new Error((err as any).message);

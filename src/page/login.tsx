@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserDTO, useUser } from "../context/user";
+import { useUser } from "../context/user";
 import { toast } from "react-toastify";
 import auth from "../service/login/auth";
+import { api } from "../service/api";
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
-    const { user, setUser } = useUser();
+    const { setUser } = useUser();
     useEffect(() => {
-        if (Object.values(user).length) {
+        if (api.defaults.headers.common["authorization"]) {
             navigate("/home");
         }
     }, []);
@@ -23,13 +24,12 @@ const Login: React.FC = () => {
                         new FormData(event.target as HTMLFormElement).entries(),
                     );
                     try {
-                        const user = await auth({
+                        await auth({
                             username: username as string,
                             password: password as string,
                         });
-                        setUser(user);
-                        localStorage.setItem("username", user.username);
-                        navigate("/home");
+
+                        window.location.href = "/home";
                         toast("Login feito com sucesso", { type: "success" });
                     } catch (err) {
                         toast(`Erro ao logar: ${(err as Error).message}`, {
@@ -51,8 +51,15 @@ const Login: React.FC = () => {
                     type={"password"}
                     placeholder="Senha"
                 />
-                <h3 className="text-sm self-center">Não tem uma conta ainda?</h3>
-                <h3 className="text-sm self-center cursor-pointer text-cyan-800 underline" onClick={() => navigate("/register")}>Clique aqui e se registre!</h3>
+                <h3 className="text-sm self-center">
+                    Não tem uma conta ainda?
+                </h3>
+                <h3
+                    className="text-sm self-center cursor-pointer text-cyan-800 underline"
+                    onClick={() => navigate("/register")}
+                >
+                    Clique aqui e se registre!
+                </h3>
                 <button
                     type="submit"
                     className="w-full bg-sky-400 text-white px-4 py-[6px] rounded-md"

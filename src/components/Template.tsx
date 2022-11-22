@@ -11,12 +11,12 @@ const Template: React.FC = () => {
 
     useEffect(() => {
         if (!localStorage.getItem("refresh_token")) {
-            if (!window.location.pathname.includes("/register")) {
-                return navigate("/login");
+            if (!pathname.includes("/register")) {
+                navigate("/login");
             }
         } else {
-            if (!window.location.pathname.includes("/note")) {
-                return navigate("/home");
+            if (!pathname.includes("/note")) {
+                navigate("/home");
             }
         }
     }, [pathname]);
