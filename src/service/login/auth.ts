@@ -30,9 +30,11 @@ export default async function auth({
         return user;
     } catch (err) {
         if (err instanceof AxiosError) {
-            const msg = err.response?.data?.error;
+            const msg = err.response?.data?.error || err.response?.data.message;
             if (msg) {
-                throw new Error(msg);
+                console.log(msg);
+                const translated = msg == "Invalid password!" ? "Senha inválida!" : msg === "User not found!" ? "Usuário não encontrado!" : msg;
+                throw new Error(translated);
             }
             throw new Error(err.message);
         }
