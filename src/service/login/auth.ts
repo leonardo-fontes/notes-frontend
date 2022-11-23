@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { UserDTO } from "../../context/user";
 import { api } from "../api";
 
@@ -13,7 +14,7 @@ export default async function auth({
 }: {
     username: string;
     password: string;
-}): Promise<UserDTO> {
+}): Promise<UserDTO | undefined> {
     try {
         const {
             data: { token, refreshToken, user },
@@ -28,6 +29,12 @@ export default async function auth({
         localStorage.setItem("username", user.username);
         return user;
     } catch (err) {
-        throw new Error((err as any).message);
+        if (err instanceof AxiosError) {
+            const msg = err.response?.data?.error;
+            if (msg) {
+                throw new Error(msg);
+            }
+            throw new Error(err.message);
+        }
     }
 }
